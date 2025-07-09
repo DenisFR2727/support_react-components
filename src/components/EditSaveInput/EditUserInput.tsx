@@ -58,6 +58,7 @@ export default function EditUserInput() {
                                 <input
                                     value={editUserValue}
                                     onChange={changeName}
+                                    autoFocus
                                 />
                                 <button onClick={() => saveUser(user.id)}>
                                     Save
