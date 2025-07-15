@@ -14,7 +14,7 @@ const initialTasks: ITasks[] = [
 
 export default function TodoList() {
     const [tasks, setTasks] = useState<ITasks[]>(initialTasks);
-    const noTasks = tasks.every((task) => task.isCompleted);
+    const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
 
     const toggleStatus = (taskId: number) => {
         const updateStatus = tasks.map((task) =>
@@ -25,55 +25,82 @@ export default function TodoList() {
         setTasks(updateStatus);
     };
 
-    if (noTasks) {
-        return <p>No Tasks!</p>;
-    }
+    const filteredTask = tasks.filter((task) => {
+        if (filter === 'active') return !task.isCompleted;
+        if (filter === 'completed') return task.isCompleted;
+        return true;
+    });
+    const noTasks = filteredTask.length === 0;
     return (
-        <div>
+        <div className="todo_list">
             <h1>Task 2</h1>
-            <ul>
-                {tasks.map((task) => (
-                    <li key={task.id}>
-                        <input
-                            type="checkbox"
-                            checked={task.isCompleted}
-                            onChange={() => toggleStatus(task.id)}
-                        />
-                        <span className={task.isCompleted ? 'isCompleted' : ''}>
-                            {task.text}
-                        </span>
-                        <button onClick={() => toggleStatus(task.id)}>
-                            Toggle Status
-                        </button>
-                    </li>
-                ))}
-            </ul>
+            <div className="filters_ btn">
+                <button
+                    onClick={() => {
+                        setFilter('all');
+                    }}
+                >
+                    All
+                </button>
+                <button onClick={() => setFilter('active')}>Active</button>
+                <button onClick={() => setFilter('completed')}>
+                    Completed
+                </button>
+            </div>
+            {noTasks ? (
+                <p>No Tasks!</p>
+            ) : (
+                <ul>
+                    {filteredTask.map((task) => (
+                        <li key={task.id}>
+                            <input
+                                type="checkbox"
+                                checked={task.isCompleted}
+                                onChange={() => toggleStatus(task.id)}
+                            />
+                            <span
+                                className={
+                                    task.isCompleted ? 'isCompleted' : ''
+                                }
+                            >
+                                {task.text}
+                            </span>
+                            <button onClick={() => toggleStatus(task.id)}>
+                                Toggle Status
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }
 
-// Умова:
+// 🧩 Завдання #6: Фільтрація задач за статусом
+// 🔸 Умова:
 
 // Створи компонент, який:
 
-//     Має список задач (to-do):
+//     Має список задач (id, text, isCompleted)
 
-//         Кожна задача має: id, text, isCompleted
+//     Показує задачі у списку
 
-//     Кожна задача відображається зі статусом (✅ або ⏳)
+//     Має 3 кнопки-фільтри:
 
-//     Є кнопка "Змінити статус" — перевертає isCompleted (true ⇄ false)
+//         All
 
-//     Завершені задачі — показуються з перекресленим текстом (або зеленим кольором)
+//         Active — показує лише не виконані задачі
 
-// 🧠 Приклад задач:
+//         Completed — показує лише виконані задачі
 
-// 🔨 Що має бути:
+//     При натисканні на кнопку — список задач змінюється відповідно до фільтра
 
-//     useState для масиву задач ✅
+//     Активний фільтр має бути візуально виділений (наприклад, кольором або підкресленням)
 
-//     кнопка "Toggle Status" 🟰 оновлення поля isCompleted
+// 📌 Обмеження:
 
-//     стилізація (перекреслений або зелений/сірий) залежно від статусу
+//     Додавати нові задачі чи редагувати — не потрібно
 
-//     якщо задач немає — показати повідомлення No tasks
+//     Всі задачі вже є у масиві
+
+//     Робити все в одному компоненті

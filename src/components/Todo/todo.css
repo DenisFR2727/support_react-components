@@ -1,3 +1,13 @@
 .isCompleted {
     color: green;
 }
+.todo_list ul li {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+.todo_list ul {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
