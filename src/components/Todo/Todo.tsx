@@ -35,13 +35,7 @@ export default function TodoList() {
         <div className="todo_list">
             <h1>Task 2</h1>
             <div className="filters_ btn">
-                <button
-                    onClick={() => {
-                        setFilter('all');
-                    }}
-                >
-                    All
-                </button>
+                <button onClick={() => setFilter('all')}>All</button>
                 <button onClick={() => setFilter('active')}>Active</button>
                 <button onClick={() => setFilter('completed')}>
                     Completed

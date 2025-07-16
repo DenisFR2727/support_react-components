@@ -1,0 +1,26 @@
+.list ul .product {
+    max-width: 350px;
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.list ul .product .quantity {
+    display: flex;
+    justify-content: center;
+}
+.list ul .product .name {
+    max-width: 100px;
+    text-align: start;
+}
+.product-price {
+    width: 100px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    text-align: start;
+}
+.product-price {
+    display: flex;
+}
