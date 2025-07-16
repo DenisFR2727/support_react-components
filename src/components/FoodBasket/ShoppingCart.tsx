@@ -53,7 +53,7 @@ export default function ShoppingCart() {
                         </p>
                         <div className="product-price">
                             <span>Price</span>
-                            <span>{product.price}</span>
+                            <span>{product.price * product.quantity}</span>
                         </div>
                         <div>
                             <span>Quantity</span>
