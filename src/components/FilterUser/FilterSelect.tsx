@@ -21,7 +21,7 @@ export default function ProductFilter({
     setCategoryValue(e.target.value);
   };
   const filteredProducts = useMemo(() => {
-    let filtered = [...products];
+    let filtered = [...products]; // якщо в майбутньому хочемо мутувати масив ( краще зробити копію)
 
     switch (categoryValue) {
       case "Electronics":
@@ -40,6 +40,17 @@ export default function ProductFilter({
 
     return filtered;
   }, [maxPrice, products, categoryValue]);
+
+  const groupProducts = useMemo(() => {
+    return filteredProducts.reduce<Record<string, ProductsProps[]>>(
+      (acc, next) => {
+        const groupCategory = next.category;
+        (acc[groupCategory] ||= []).push(next);
+        return acc;
+      },
+      {}
+    );
+  }, [filteredProducts]);
 
   return (
     <div>
@@ -60,14 +71,19 @@ export default function ProductFilter({
         onChange={(e) => setMaxPrice(e.target.value ? +e.target.value : null)}
       />
       <div className="products">
-        <ul>
-          {filteredProducts.map((product) => (
-            <li key={product.id} style={{ display: "flex", gap: "50px" }}>
-              <p style={{ width: "100px" }}>{product.name}</p>
-              <p>{product.price}$</p>
-            </li>
-          ))}
-        </ul>
+        {Object.entries(groupProducts).map(([categoryValue, products]) => (
+          <section key={categoryValue}>
+            <h3>{categoryValue}</h3>
+            <ul>
+              {products.map((product) => (
+                <li key={product.id} style={{ display: "flex", gap: "50px" }}>
+                  <p style={{ width: "100px" }}>{product.name}</p>
+                  <p>{product.price}$</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
     </div>
   );
