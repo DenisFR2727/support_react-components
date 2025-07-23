@@ -14,6 +14,8 @@ export default function ProductFilter({
 }) {
   const [categoryValue, setCategoryValue] = useState<string>("All");
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
   const categorys = ["All", "Electronics", "Furniture", "Clothing"];
 
   const changeValueCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -37,9 +39,13 @@ export default function ProductFilter({
     if (maxPrice !== null) {
       filtered = filtered.filter((prod) => prod.price <= maxPrice);
     }
-
+    if (searchTerm) {
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
     return filtered;
-  }, [maxPrice, products, categoryValue]);
+  }, [maxPrice, products, categoryValue, searchTerm]);
 
   const groupProducts = useMemo(() => {
     return filteredProducts.reduce<Record<string, ProductsProps[]>>(
@@ -69,6 +75,11 @@ export default function ProductFilter({
       <input
         type="number"
         onChange={(e) => setMaxPrice(e.target.value ? +e.target.value : null)}
+      />
+      <input
+        type="text"
+        placeholder="Search..."
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div className="products">
         {Object.entries(groupProducts).map(([categoryValue, products]) => (

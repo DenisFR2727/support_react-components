@@ -20,6 +20,7 @@ export default function ShoppingCart() {
     (acc, next) => acc + next.price * next.quantity,
     0
   );
+  const totalItems = products.reduce((acc, next) => acc + next.quantity, 0);
 
   const decrement = (productId: number) => {
     const updateCountDecrement = products.map((product) =>
@@ -66,6 +67,7 @@ export default function ShoppingCart() {
           </li>
         ))}
         <div>Total: {totalSum}</div>
+        <div>Total items: {totalItems}</div>
       </ul>
     </div>
   );
