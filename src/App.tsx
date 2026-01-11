@@ -5,6 +5,7 @@ import ShoppingCart from "./components/FoodBasket/ShoppingCart";
 import "./App.css";
 import FilterUser from "./components/FilterUser/FilterUser";
 import ProductFilter from "./components/FilterUser/FilterSelect";
+import UserList from "./components/userListFetch/user-list";
 
 const users = [
   { id: 1, name: "Anna", age: 25 },
@@ -28,6 +29,7 @@ function App() {
       <ShoppingCart />
       <FilterUser users={users} />
       <ProductFilter products={products} />
+      <UserList />
     </div>
   );
 }
