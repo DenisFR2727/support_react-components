@@ -10,6 +10,9 @@ export default function Login() {
       email: email.current.value,
       password: password.current.value,
     };
+    // Not Recomended!
+    //  email.current.value = "";
+    //  password.current.value = "";
 
     console.log("Submitting", user);
   }
