@@ -15,6 +15,16 @@ export default function Login() {
   function handleSubmit(event) {
     event.preventDefault();
 
+    if (
+      enteredValues.email.length === 0 ||
+      enteredValues.password.length === 0
+    ) {
+      return;
+    }
+    setDidEdit({
+      email: false,
+      password: false,
+    });
     console.log("Submitting");
     console.log(enteredValues);
 
