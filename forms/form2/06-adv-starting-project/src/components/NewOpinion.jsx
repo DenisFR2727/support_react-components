@@ -1,3 +1,4 @@
+"use client";
 import { useActionState } from "react";
 import { isNotEmpty } from "../lib/validation";
 import { OpinionsContext } from "../store/opinions-context";
@@ -10,7 +11,7 @@ export function NewOpinion() {
   async function shareOpinionAction(prevState, formData) {
     const userName = formData.get("userName");
     const title = formData.get("title");
-    const textArea = formData.get("body");
+    const body = formData.get("body");
 
     let errors = [];
 
@@ -20,8 +21,8 @@ export function NewOpinion() {
     if (!isNotEmpty(title)) {
       errors.push("Plese valid title.");
     }
-    if (!isNotEmpty(textArea) || !textArea.trim().length < 300) {
-      errors.push("Plese must be between 300 characters long in textarea.");
+    if (body.trim().length < 50) {
+      errors.push("Plese must be between 50 characters long in textarea.");
     }
 
     if (errors.length > 0) {
@@ -30,18 +31,14 @@ export function NewOpinion() {
         values: {
           userName,
           title,
-          textArea,
+          body,
         },
       };
     }
 
     // submit to backend
-    const data = {
-      userName,
-      title,
-      textArea,
-    };
-    await addOpinion(data);
+
+    await addOpinion({ userName, title, body });
 
     return {
       errors: null,
@@ -83,7 +80,7 @@ export function NewOpinion() {
             id="body"
             name="body"
             rows={5}
-            defaultValue={stateForm.values?.textArea}
+            defaultValue={stateForm.values?.body}
           ></textarea>
         </p>
         {stateForm.errors && (
