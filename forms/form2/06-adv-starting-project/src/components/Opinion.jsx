@@ -1,4 +1,30 @@
+import { useActionState } from "react";
+import { OpinionsContext } from "../store/opinions-context";
+import { use } from "react";
+import { useOptimistic } from "react";
+
 export function Opinion({ opinion: { id, title, body, userName, votes } }) {
+  const { upvoteOpinion, downvoteOpinion } = use(OpinionsContext);
+  const [optimisticVotes, setVotesOptimistically] = useOptimistic(
+    votes,
+    (prevState, mode) => (mode === "up" ? prevState + 1 : prevState - 1),
+  );
+
+  async function apvoteAction() {
+    setVotesOptimistically("up");
+    await upvoteOpinion(id);
+  }
+  async function downvoteAction() {
+    setVotesOptimistically("down");
+    await downvoteOpinion(id);
+  }
+  const [upvoteFormState, upvoteFormAction, upvotePending] = useActionState(
+    apvoteAction,
+    null,
+  );
+  const [downvoteFormState, downvoteFormAction, downvotePending] =
+    useActionState(downvoteAction, null);
+
   return (
     <article>
       <header>
@@ -7,7 +33,10 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
       </header>
       <p>{body}</p>
       <form className="votes">
-        <button>
+        <button
+          formAction={upvoteFormAction}
+          disabled={upvotePending || downvotePending}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -25,9 +54,12 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
           </svg>
         </button>
 
-        <span>{votes}</span>
+        <span>{optimisticVotes}</span>
 
-        <button>
+        <button
+          formAction={downvoteFormAction}
+          disabled={downvotePending || upvotePending}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -48,3 +80,8 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
     </article>
   );
 }
+
+// First variant
+
+//  disabled={downvotePending || upvotePending}
+// disabled={downvotePending || upvotePending}
