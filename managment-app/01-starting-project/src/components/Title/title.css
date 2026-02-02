@@ -17,12 +17,21 @@
   transform: translate(-50%, -50%);
 }
 .title-content h2 {
+  text-align: center;
   color: rgb(17, 7, 1);
 }
 .title-content p {
+  text-align: center;
   color: grey;
   font-size: 18px;
 }
 .title-content img {
   width: 100px;
+}
+.title-new-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  color: grey;
+  background-color: rgb(17, 7, 1);
 }
