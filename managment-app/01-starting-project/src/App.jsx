@@ -3,7 +3,7 @@ import Title from "./components/Title/Title";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <PanelProjects />
       <Title />
     </div>
