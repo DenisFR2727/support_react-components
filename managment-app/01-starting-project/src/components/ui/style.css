@@ -1,0 +1,15 @@
+.btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  border: none;
+  user-select: none;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+.btn-icon svg {
+  display: flex;
+  font-size: 15px;
+}
