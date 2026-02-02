@@ -2,7 +2,7 @@ import { GoPlus } from "react-icons/go";
 import Button from "../ui/button";
 import "./aside-panel.css";
 
-export default function PanelProjects() {
+export default function SidebarProjects() {
   return (
     <aside className="aside-panel">
       <div className="aside-content">
