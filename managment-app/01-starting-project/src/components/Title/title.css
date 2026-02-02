@@ -1,0 +1,6 @@
+.title-page {
+  display: flex;
+  background: red;
+  width: 500px;
+  height: 100vh;
+}
