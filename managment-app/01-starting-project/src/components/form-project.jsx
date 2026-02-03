@@ -5,7 +5,7 @@ export default function FormProject() {
     <div className="new-project">
       <div>
         <Button>Cancel</Button>
-        <button>Save</button>
+        <Button>Save</Button>
       </div>
     </div>
   );

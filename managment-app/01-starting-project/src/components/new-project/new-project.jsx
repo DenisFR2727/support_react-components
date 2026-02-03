@@ -1,7 +1,34 @@
+import { useRef } from "react";
 import Button from "../ui/button";
 import Input from "./Input";
 
-export default function NewProject() {
+import "./new-project.css";
+
+export default function NewProject({ onAdd }) {
+  const title = useRef(null);
+  const description = useRef(null);
+  const dueDate = useRef(null);
+
+  function handleSave() {
+    const enteredTitle = title.current.value;
+    const enteredDescription = description.current.value;
+    const enteredDueDate = dueDate.current.value;
+
+    // validation
+
+    onAdd({
+      title: enteredTitle,
+      description: enteredDescription,
+      dueDate: enteredDueDate,
+    });
+
+    title.current.value = "";
+    description.current.value = "";
+    dueDate.current.value = "";
+
+    console.log(enteredTitle);
+  }
+
   return (
     <div className="new-project">
       <menu>
@@ -9,13 +36,13 @@ export default function NewProject() {
           <Button>Cancel</Button>
         </li>
         <li>
-          <Button>Save</Button>
+          <Button onClick={handleSave}>Save</Button>
         </li>
       </menu>
-      <div>
-        <Input label={"Title"} />
-        <Input label={"Decription"} />
-        <Input label={"Due Date"} />
+      <div className="new-project">
+        <Input classes="title" ref={title} label={"Title"} />
+        <Input classes="description" ref={description} label={"Decription"} />
+        <Input classes="due" ref={dueDate} label={"Due Date"} type="date" />
       </div>
     </div>
   );
