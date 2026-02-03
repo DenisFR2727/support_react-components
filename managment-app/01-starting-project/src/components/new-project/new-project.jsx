@@ -3,7 +3,7 @@ import Input from "./Input";
 
 export default function NewProject() {
   return (
-    <div>
+    <div className="new-project">
       <menu>
         <li>
           <Button>Cancel</Button>
