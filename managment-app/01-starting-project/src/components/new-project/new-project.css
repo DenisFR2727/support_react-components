@@ -29,7 +29,7 @@
 .description {
   border: none;
   outline: none;
-  background: grey;
+  background: rgb(168, 166, 166);
   border-bottom: 2px solid transparent;
   caret-color: rgb(17, 7, 1);
 }
@@ -43,4 +43,20 @@ label {
 .due:focus,
 .description:focus {
   border-bottom: 1px solid rgb(17, 7, 1);
+}
+
+menu {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+menu {
+  li {
+    list-style: none;
+  }
+}
+.cancel,
+.save {
+  padding: 10px 20px;
+  border-radius: 5px;
 }

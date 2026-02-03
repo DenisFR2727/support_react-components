@@ -4,10 +4,14 @@ import Input from "./Input";
 
 import "./new-project.css";
 
-export default function NewProject({ onAdd }) {
+export default function NewProject({ onAdd, onCancel }) {
   const title = useRef(null);
   const description = useRef(null);
   const dueDate = useRef(null);
+
+  function handleCancel() {
+    onCancel();
+  }
 
   function handleSave() {
     const enteredTitle = title.current.value;
@@ -33,10 +37,14 @@ export default function NewProject({ onAdd }) {
     <div className="new-project">
       <menu>
         <li>
-          <Button>Cancel</Button>
+          <Button onClick={handleCancel} className="cancel">
+            Cancel
+          </Button>
         </li>
         <li>
-          <Button onClick={handleSave}>Save</Button>
+          <Button className="save" onClick={handleSave}>
+            Save
+          </Button>
         </li>
       </menu>
       <div className="new-project">
