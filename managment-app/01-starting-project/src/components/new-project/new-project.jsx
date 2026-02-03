@@ -19,6 +19,13 @@ export default function NewProject({ onAdd, onCancel }) {
     const enteredDueDate = dueDate.current.value;
 
     // validation
+    if (
+      enteredTitle.trim().length === 0 ||
+      enteredDescription.trim().length < 10 ||
+      enteredDueDate.trim().length === 0
+    ) {
+      return;
+    }
 
     onAdd({
       title: enteredTitle,
@@ -29,7 +36,7 @@ export default function NewProject({ onAdd, onCancel }) {
     title.current.value = "";
     description.current.value = "";
     dueDate.current.value = "";
-
+    
     console.log(enteredTitle);
   }
 

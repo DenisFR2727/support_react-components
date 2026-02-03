@@ -51,7 +51,10 @@ function App() {
 
   return (
     <main className="App">
-      <SidebarProjects onStartAddProject={handleStartProject} />
+      <SidebarProjects
+        list={projectsState.projects}
+        onStartAddProject={handleStartProject}
+      />
       {content}
     </main>
   );
