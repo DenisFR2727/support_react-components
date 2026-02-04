@@ -2,7 +2,16 @@ import { GoPlus } from "react-icons/go";
 import Button from "../ui/button";
 import "./aside-panel.css";
 
-export default function SidebarProjects({ list, onStartAddProject }) {
+export default function SidebarProjects({
+  list,
+  onStartAddProject,
+  selectProject,
+}) {
+
+  function handleClickProject(id) {
+    selectProject(id);
+  }
+  
   return (
     <aside className="aside-panel">
       <div className="aside-content">
@@ -16,7 +25,11 @@ export default function SidebarProjects({ list, onStartAddProject }) {
         </Button>
         <ul className="list-project">
           {list.map((project) => (
-            <li className="project" key={project.id}>
+            <li
+              className="project"
+              key={project.id}
+              onClick={() => handleClickProject(project.id)}
+            >
               {project.title}
             </li>
           ))}

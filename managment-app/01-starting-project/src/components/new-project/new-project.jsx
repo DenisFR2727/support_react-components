@@ -34,6 +34,7 @@ export default function NewProject({ onAdd, onCancel }) {
     title.current.value = "";
     description.current.value = "";
     dueDate.current.value = "";
+
     onCancel();
 
     console.log(enteredTitle);
