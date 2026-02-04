@@ -1,10 +1,20 @@
 .new-project {
-  width: 500px;
+  width: 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-
+.project-add {
+  width: 100%;
+  padding-left: 30px;
+  padding-top: 50px;
+  padding-right: 30px;
+}
+menu {
+  width: 100%;
+  max-width: 600px;
+}
 .title,
 .due {
   height: 40px;
@@ -33,7 +43,12 @@
   border-bottom: 2px solid transparent;
   caret-color: rgb(17, 7, 1);
 }
-
+.title,
+.due {
+  box-sizing: border-box;
+  padding: 0 10px;
+  font-size: 16px;
+}
 label {
   text-transform: uppercase;
   font-weight: 600;
@@ -59,4 +74,9 @@ menu {
 .save {
   padding: 10px 20px;
   border-radius: 5px;
+  color: rgb(168, 166, 166);
+}
+.save:hover,
+.cancel:hover {
+  background-color: rgb(17, 7, 1);
 }

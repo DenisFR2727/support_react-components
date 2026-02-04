@@ -9,7 +9,9 @@ export default function NewProject({ onAdd, onCancel }) {
   const description = useRef(null);
   const dueDate = useRef(null);
 
-  function handleCancel() {}
+  function handleCancel() {
+    onCancel();
+  }
 
   function handleSave() {
     const enteredTitle = title.current.value;
@@ -41,10 +43,10 @@ export default function NewProject({ onAdd, onCancel }) {
   }
 
   return (
-    <div className="new-project">
+    <div className="project-add">
       <menu>
         <li>
-          <Button onClick={handleCancel} className="cancel">
+          <Button className="cancel" onClick={handleCancel}>
             Cancel
           </Button>
         </li>

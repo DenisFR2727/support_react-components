@@ -7,11 +7,10 @@ export default function SidebarProjects({
   onStartAddProject,
   selectProject,
 }) {
-
   function handleClickProject(id) {
     selectProject(id);
   }
-  
+
   return (
     <aside className="aside-panel">
       <div className="aside-content">
