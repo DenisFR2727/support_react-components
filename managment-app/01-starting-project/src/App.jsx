@@ -2,12 +2,13 @@ import { useState } from "react";
 import NoProjectSelected from "./components/Title/Title";
 import SidebarProjects from "./components/Panel/aside-panel";
 import NewProject from "./components/new-project/new-project";
-import ToDoProject from "./components/todo-project";
+import ToDoProject from "./components/todo/todo-project";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
+    tasks: [],
   });
   let content;
 
@@ -49,6 +50,19 @@ function App() {
       };
     });
   }
+  function handleAddTaskProject(task) {
+    setProjectsState((prevState) => {
+      const newTask = {
+        ...task,
+        id: Math.random(),
+      };
+      return {
+        ...prevState,
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }
+  console.log(projectsState?.tasks);
 
   if (projectsState.selectedProjectId === null) {
     content = (
@@ -60,7 +74,9 @@ function App() {
     const selectedProject = projectsState.projects.find(
       (p) => p.id === projectsState.selectedProjectId,
     );
-    content = <ToDoProject project={selectedProject} />;
+    content = (
+      <ToDoProject project={selectedProject} onAdd={handleAddTaskProject} />
+    );
   }
 
   return (
