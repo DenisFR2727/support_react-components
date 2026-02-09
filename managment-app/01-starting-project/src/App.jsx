@@ -55,10 +55,31 @@ function App() {
       const newTask = {
         ...task,
         id: Math.random(),
+        projectId: prevState.selectedProjectId,
       };
       return {
         ...prevState,
         tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }
+  function handleDeleteProject(projectId) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: prevState.projects.filter(
+          (project) => project.id !== projectId,
+        ),
+        tasks: prevState.tasks.filter((task) => task.projectId !== projectId),
+      };
+    });
+  }
+  function handleDeleteTaskId(taskId) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== taskId),
       };
     });
   }
@@ -75,7 +96,13 @@ function App() {
       (p) => p.id === projectsState.selectedProjectId,
     );
     content = (
-      <ToDoProject project={selectedProject} onAdd={handleAddTaskProject} />
+      <ToDoProject
+        project={selectedProject}
+        onAdd={handleAddTaskProject}
+        tasks={projectsState.tasks}
+        onDelProject={handleDeleteProject}
+        onDelTask={handleDeleteTaskId}
+      />
     );
   }
 

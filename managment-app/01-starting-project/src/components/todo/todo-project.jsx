@@ -3,34 +3,62 @@ import Input from "../new-project/Input";
 import Button from "../ui/button";
 import "./todo-project.css";
 
-export default function ToDoProject({ project, onAdd }) {
+export default function ToDoProject({
+  project,
+  onAdd,
+  tasks,
+  onDelProject,
+  onDelTask,
+}) {
   const refTask = useRef(null);
 
   console.log(project);
 
   function handleAddTask() {
-    const task = refTask.current.value;
+    const enteredTask = refTask.current.value;
 
-    onAdd({ task: task });
+    if (enteredTask.trim().length === 0) {
+      return;
+    }
+    onAdd({ task: enteredTask });
+
+    refTask.current.value = "";
+  }
+  function handleDelete(projectId) {
+    onDelProject(projectId);
+  }
+  function handleDeleteTask(taskId) {
+    onDelTask(taskId);
   }
   return (
     <div className="project-todo">
       <div className="project-select">
         <div className="project-title">
           <h2 style={{ color: "red" }}>{project.title}</h2>
-          <Button>Delete</Button>
+          <Button onClick={() => handleDelete(project.id)}>Delete</Button>
         </div>
         <div className="project-content">
           <span className="project-due">{project.dueDate}</span>
           <p className="project-description">{project.description}</p>
         </div>
         <div className="todo">
-          <h2>Task</h2>
+          <h2 className="todo_title">Tasks</h2>
           <div className="todo_task">
-            <Input ref={refTask} type="text" />
+            <Input ref={refTask} type="text" className="todo_task-change" />
             <Button onClick={handleAddTask}>Add Task</Button>
           </div>
-          <div className="tasks"></div>
+          <ul className="tasks">
+            {tasks?.length > 0 ? (
+              tasks.map((t) => (
+                <li key={t.id} className="tasks-list">
+                  <span>{t.task}</span>
+                  <Button onClick={() => handleDeleteTask(t.id)}>Clear</Button>
+                </li>
+              ))
+            ) : (
+              <p>Not add Task</p>
+            )}
+          </ul>
         </div>
       </div>
     </div>
