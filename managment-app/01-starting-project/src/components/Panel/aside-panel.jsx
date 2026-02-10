@@ -3,7 +3,7 @@ import Button from "../ui/button";
 import "./aside-panel.css";
 
 export default function SidebarProjects({
-  list,
+  projects,
   onStartAddProject,
   selectProject,
 }) {
@@ -23,7 +23,7 @@ export default function SidebarProjects({
           Add Project
         </Button>
         <ul className="list-project">
-          {list.map((project) => (
+          {projects.map((project) => (
             <li
               className="project"
               key={project.id}

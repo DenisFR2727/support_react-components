@@ -3,8 +3,11 @@ import Button from "../ui/button";
 import Input from "./Input";
 
 import "./new-project.css";
+import Modal from "../Modal";
 
 export default function NewProject({ onAdd, onCancel }) {
+  const modalRef = useRef(null);
+
   const title = useRef(null);
   const description = useRef(null);
   const dueDate = useRef(null);
@@ -20,10 +23,11 @@ export default function NewProject({ onAdd, onCancel }) {
 
     // validation
     if (
-      enteredTitle.trim().length === 0 ||
-      enteredDescription.trim().length < 10 ||
-      enteredDueDate.trim().length === 0
+      enteredTitle.trim().length === "" ||
+      enteredDescription.trim().length < 5 ||
+      enteredDueDate.trim().length === ""
     ) {
+      modalRef.current.open();
       return;
     }
 
@@ -38,29 +42,39 @@ export default function NewProject({ onAdd, onCancel }) {
     dueDate.current.value = "";
 
     onCancel();
-
-    console.log(enteredTitle);
   }
 
   return (
-    <div className="project-add">
-      <menu>
-        <li>
-          <Button className="cancel" onClick={handleCancel}>
-            Cancel
-          </Button>
-        </li>
-        <li>
-          <Button className="save" onClick={handleSave}>
-            Save
-          </Button>
-        </li>
-      </menu>
-      <div className="new-project">
-        <Input classes="title" ref={title} label={"Title"} />
-        <Input classes="description" ref={description} label={"Decription"} />
-        <Input classes="due" ref={dueDate} label={"Due Date"} type="date" />
+    <>
+      <Modal ref={modalRef} buttonCaption="Okey">
+        <h2>Invalid Input </h2>
+        <p>Oops ... Looks like you forgot to enter a value.</p>
+        <p>Please make sure you provide a valid value for every input field.</p>
+      </Modal>
+      <div className="project-add">
+        <menu>
+          <li>
+            <Button className="cancel" onClick={handleCancel}>
+              Cancel
+            </Button>
+          </li>
+          <li>
+            <Button className="save" onClick={handleSave}>
+              Save
+            </Button>
+          </li>
+        </menu>
+        <div className="new-project">
+          <Input classes="title" ref={title} label={"Title"} />
+          <Input
+            classes="description"
+            ref={description}
+            label={"Decription"}
+            textarea
+          />
+          <Input classes="due" ref={dueDate} label={"Due Date"} type="date" />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -109,7 +109,7 @@ function App() {
   return (
     <main className="App">
       <SidebarProjects
-        list={projectsState.projects}
+        projects={projectsState.projects}
         onStartAddProject={handleStartProject}
         selectProject={handleSelectedProject}
       />
