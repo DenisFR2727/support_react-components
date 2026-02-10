@@ -11,8 +11,11 @@ export default function ToDoProject({
   onDelTask,
 }) {
   const refTask = useRef(null);
-
-  console.log(project);
+  const formattedDate = new Date(project.dueDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
   function handleAddTask() {
     const enteredTask = refTask.current.value;
@@ -38,7 +41,7 @@ export default function ToDoProject({
           <Button onClick={() => handleDelete(project.id)}>Delete</Button>
         </div>
         <div className="project-content">
-          <span className="project-due">{project.dueDate}</span>
+          <span className="project-due">{formattedDate}</span>
           <p className="project-description">{project.description}</p>
         </div>
         <div className="todo">

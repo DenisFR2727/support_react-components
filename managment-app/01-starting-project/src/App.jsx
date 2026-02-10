@@ -42,7 +42,6 @@ function App() {
     });
   }
   function handleSelectedProject(projectId) {
-    console.log(projectId);
     setProjectsState((prevState) => {
       return {
         ...prevState,
@@ -83,7 +82,6 @@ function App() {
       };
     });
   }
-  console.log(projectsState?.tasks);
 
   if (projectsState.selectedProjectId === null) {
     content = (
@@ -95,11 +93,14 @@ function App() {
     const selectedProject = projectsState.projects.find(
       (p) => p.id === projectsState.selectedProjectId,
     );
+    const projectTasks = projectsState.tasks.filter(
+      (task) => task.projectId === projectsState.selectedProjectId,
+    );
     content = (
       <ToDoProject
         project={selectedProject}
         onAdd={handleAddTaskProject}
-        tasks={projectsState.tasks}
+        tasks={projectTasks}
         onDelProject={handleDeleteProject}
         onDelTask={handleDeleteTaskId}
       />
