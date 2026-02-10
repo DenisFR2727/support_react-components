@@ -27,8 +27,9 @@ export default function ToDoProject({
 
     refTask.current.value = "";
   }
-  function handleDelete(projectId) {
-    onDelProject(projectId);
+
+  function handleDelete() {
+    onDelProject();
   }
   function handleDeleteTask(taskId) {
     onDelTask(taskId);
@@ -38,7 +39,7 @@ export default function ToDoProject({
       <div className="project-select">
         <div className="project-title">
           <h2 style={{ color: "red" }}>{project.title}</h2>
-          <Button onClick={() => handleDelete(project.id)}>Delete</Button>
+          <Button onClick={handleDelete}>Delete</Button>
         </div>
         <div className="project-content">
           <span className="project-due">{formattedDate}</span>
