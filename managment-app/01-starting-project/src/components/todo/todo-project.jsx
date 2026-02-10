@@ -2,6 +2,7 @@ import { useRef } from "react";
 import Input from "../new-project/Input";
 import Button from "../ui/button";
 import "./todo-project.css";
+import Tasks from "./tasks";
 
 export default function ToDoProject({
   project,
@@ -31,9 +32,7 @@ export default function ToDoProject({
   function handleDelete() {
     onDelProject();
   }
-  function handleDeleteTask(taskId) {
-    onDelTask(taskId);
-  }
+
   return (
     <div className="project-todo">
       <div className="project-select">
@@ -51,18 +50,7 @@ export default function ToDoProject({
             <Input ref={refTask} type="text" className="todo_task-change" />
             <Button onClick={handleAddTask}>Add Task</Button>
           </div>
-          <ul className="tasks">
-            {tasks?.length > 0 ? (
-              tasks.map((t) => (
-                <li key={t.id} className="tasks-list">
-                  <span>{t.task}</span>
-                  <Button onClick={() => handleDeleteTask(t.id)}>Clear</Button>
-                </li>
-              ))
-            ) : (
-              <p>Not add Task</p>
-            )}
-          </ul>
+          <Tasks tasks={tasks} onDelTask={onDelTask} />
         </div>
       </div>
     </div>
