@@ -29,10 +29,20 @@
     color: rgb(168, 166, 166);
     font-size: 20px;
     padding: 10px 0 10px 5px;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
   }
   .project:hover {
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+  }
+  .project-active {
     background-color: rgb(40, 21, 9);
     cursor: pointer;
     color: rgb(255, 255, 255);
+    list-style: none;
+    font-size: 20px;
+    padding: 10px 0 10px 5px;
   }
 }

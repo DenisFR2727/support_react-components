@@ -6,6 +6,7 @@ export default function SidebarProjects({
   projects,
   onStartAddProject,
   selectProject,
+  selectedProject,
 }) {
   function handleClickProject(id) {
     selectProject(id);
@@ -25,7 +26,9 @@ export default function SidebarProjects({
         <ul className="list-project">
           {projects.map((project) => (
             <li
-              className="project"
+              className={
+                project.id === selectedProject ? "project-active" : "project"
+              }
               key={project.id}
               onClick={() => handleClickProject(project.id)}
             >
