@@ -47,7 +47,7 @@ export default function NewProject({ onAdd, onCancel }) {
   return (
     <>
       <Modal ref={modalRef} buttonCaption="Okey">
-        <h2>Invalid Input </h2>
+        <h2 className="modal-title">Invalid Input </h2>
         <p>Oops ... Looks like you forgot to enter a value.</p>
         <p>Please make sure you provide a valid value for every input field.</p>
       </Modal>

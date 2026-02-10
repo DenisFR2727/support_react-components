@@ -83,3 +83,6 @@ menu {
 .cancel:hover {
   background-color: rgb(17, 7, 1);
 }
+.modal-title {
+  margin-bottom: 30px;
+}
