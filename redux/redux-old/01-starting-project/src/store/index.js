@@ -1,14 +1,32 @@
-// import { createStore } from "../../node_modules/redux/dist/redux";
-import { createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 
-function reducerCounter(state = { counter: 0 }, action) {
-  if (action.type === "increment") {
-    return { counter: state.counter + 1 };
-  }
-  if (action.type === "decrement") {
-    return { counter: state.counter - 1 };
-  }
-  return state;
-}
+import counterReducer from "./counterSlice";
+import authReducer from "./authSlice";
 
-export const store = createStore(reducerCounter);
+const store = configureStore({
+  reducer: { counter: counterReducer, auth: authReducer },
+});
+
+export default store;
+
+// function reducerCounter(state = initialState, action) {
+//   if (action.type === "increase") {
+//     return {
+//       counter: state.counter + action.amount,
+//       isShowCounter: state.isShowCounter,
+//     };
+//   }
+//   if (action.type === "toggle") {
+//     return {
+//       counter: state.counter,
+//       isShowCounter: !state.isShowCounter,
+//     };
+//   }
+
+//   return state;
+// }
+
+//  Мінуси звичайного Redux - стан  з великим проектом дуже розростається і повторюється . Неможна мутувати стан як в Toolkit (Immer).
+//  Не можна розділити на підслайси редюсер
+//  Великий стейт менеджер
+//  Складний з підключенням у класових компонентах
