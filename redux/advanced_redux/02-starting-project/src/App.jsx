@@ -4,7 +4,9 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import { Fragment, useEffect } from "react";
 import Notification from "./components/UI/Notification";
-import { uiActions } from "./store/uiSlice";
+import { sendCartData } from "./store/cartSlice";
+
+let isInitial = true;
 
 function App() {
   const dispatch = useDispatch();
@@ -13,43 +15,11 @@ function App() {
   const notification = useSelector((state) => state.uiCart.notification);
 
   useEffect(() => {
-    const fetchedCart = async () => {
-      dispatch(
-        uiActions.showNotification({
-          status: "pending",
-          title: "Sending...",
-          message: "Sending cart data!",
-        }),
-      );
-      const response = await fetch(
-        `https://redux-56f49-default-rtdb.europe-west1.firebasedatabase.app/cart.json`,
-        {
-          method: "PUT",
-          body: JSON.stringify(cart),
-        },
-      );
-      if (!response.ok) {
-        throw new Error("failed response cart fetch");
-      }
-
-      dispatch(
-        uiActions.showNotification({
-          status: "success",
-          title: "Success!",
-          message: "Sent cart data successfully!",
-        }),
-      );
-    };
-
-    fetchedCart().catch((error) => {
-      dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Error!",
-          message: "Sending cart data failed!",
-        }),
-      );
-    });
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+    dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
   return (
