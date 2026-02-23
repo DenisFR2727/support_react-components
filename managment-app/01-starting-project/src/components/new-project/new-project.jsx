@@ -4,6 +4,7 @@ import Input from "./Input";
 
 import "./new-project.css";
 import Modal from "../Modal";
+import { hasMinLength, isNotEmpty } from "../../lib/validation";
 
 export default function NewProject({ onAdd, onCancel }) {
   const modalRef = useRef(null);
@@ -15,7 +16,11 @@ export default function NewProject({ onAdd, onCancel }) {
   function handleCancel() {
     onCancel();
   }
-
+  function resetInputs() {
+    title.current.value = "";
+    description.current.value = "";
+    dueDate.current.value = "";
+  }
   function handleSave() {
     const enteredTitle = title.current.value;
     const enteredDescription = description.current.value;
@@ -23,9 +28,9 @@ export default function NewProject({ onAdd, onCancel }) {
 
     // validation
     if (
-      enteredTitle.trim().length === "" ||
-      enteredDescription.trim().length < 5 ||
-      enteredDueDate.trim().length === ""
+      isNotEmpty(enteredTitle) ||
+      hasMinLength(enteredDescription) ||
+      isNotEmpty(enteredDueDate)
     ) {
       modalRef.current.open();
       return;
@@ -36,11 +41,7 @@ export default function NewProject({ onAdd, onCancel }) {
       description: enteredDescription,
       dueDate: enteredDueDate,
     });
-
-    title.current.value = "";
-    description.current.value = "";
-    dueDate.current.value = "";
-
+    resetInputs();
     onCancel();
   }
 

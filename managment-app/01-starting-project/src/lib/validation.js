@@ -3,5 +3,5 @@ export function isNotEmpty(value) {
 }
 
 export function hasMinLength(value) {
-  return value.trim().length === 0;
+  return value.trim().length < 5;
 }
