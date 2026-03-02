@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
+
+//  className={({ isActive }) - вбудований isActive  в NavLink className
 
 export default function MainNavigation() {
   return (
@@ -7,10 +9,25 @@ export default function MainNavigation() {
       <nav>
         <ul className={classes.list}>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+              end
+              to="/"
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/products">Products</Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+              to="/products"
+            >
+              Products
+            </NavLink>
           </li>
         </ul>
       </nav>
